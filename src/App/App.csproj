@@ -1,0 +1,30 @@
+﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
+    <UserSecretsId>45c40340-e5f6-42ef-90d8-8798db0a78ff</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="ImageSharp" Version="1.0.0-alpha2-00020" />
+    <PackageReference Include="ImageSharp.Drawing" Version="1.0.0-alpha2-00020" />
+    <PackageReference Include="ImageSharp.Formats.Jpeg" Version="1.0.0-alpha2-00020" />
+    <PackageReference Include="ImageSharp.Formats.Png" Version="1.0.0-alpha2-00016" />
+    <PackageReference Include="ImageSharp.Processing" Version="1.0.0-alpha2-00008" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="1.1.1-prerelease-10016" />
+    <PackageReference Include="Microsoft.ProjectOxford.Vision" Version="1.0.372" />
+    <PackageReference Include="Microsoft.ProjectOxford.Face" Version="1.2.1.2" />
+    <PackageReference Include="Yamac.LineMessagingApi.Common" Version="0.0.1-prerelease-8" />
+    <PackageReference Include="Yamac.LineMessagingApi.Client" Version="0.0.1-prerelease-8" />
+    <PackageReference Include="Yamac.LineMessagingApi.AspNetCore.Middleware" Version="0.0.1-prerelease-8" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
+  </ItemGroup>
+</Project>

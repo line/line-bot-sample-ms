@@ -1,0 +1,56 @@
+CREATE TABLE [dbo].[Conversation] (
+    [Id]        INT            IDENTITY (1, 1) NOT NULL,
+    [SenderId]  NVARCHAR (33)  NOT NULL,
+    [Path]      NVARCHAR (100) NOT NULL,
+    [Data]      NTEXT          NOT NULL,
+    [UpdatedAt] DATETIME       NULL,
+    [CreatedAt] DATETIME       CONSTRAINT [DF_Conversation_CreatedAt_Default] DEFAULT (getdate()) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [AK_Conversation_SenderId] UNIQUE NONCLUSTERED ([SenderId] ASC)
+);
+GO
+CREATE TRIGGER [dbo].[Conversation_Updated]
+ON [dbo].[Conversation] AFTER UPDATE AS 
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [dbo].[Conversation] SET UpdatedAt = getdate() WHERE Id IN (SELECT Id FROM Inserted)
+END;
+
+CREATE TABLE [dbo].[PersonGroup] (
+    [Id]            INT            IDENTITY (1, 1) NOT NULL,
+    [PersonGroupId] NVARCHAR (64)  NOT NULL,
+    [Name]          NVARCHAR (128) NOT NULL,
+    [UpdatedAt]     DATETIME       NULL,
+    [CreatedAt]     DATETIME       CONSTRAINT [DF_PersonGroup_CreatedAt_Default] DEFAULT (getdate()) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [AK_PersonGroup_PersonGroupId] UNIQUE NONCLUSTERED ([PersonGroupId] ASC)
+);
+GO
+CREATE TRIGGER [dbo].[PersonGroup_Updated]
+ON [dbo].[PersonGroup] AFTER UPDATE AS 
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [dbo].[PersonGroup] SET UpdatedAt = getdate() WHERE Id IN (SELECT Id FROM Inserted)
+END;
+
+CREATE TABLE [dbo].[Person] (
+    [Id]            INT            IDENTITY (1, 1) NOT NULL,
+    [PersonGroupId] NVARCHAR (64)  NOT NULL,
+    [PersonId]      NVARCHAR (36)  NOT NULL,
+    [Name]          NVARCHAR (128) NOT NULL,
+    [UpdatedAt]     DATETIME       NULL,
+    [CreatedAt]     DATETIME       CONSTRAINT [DF_Person_CreatedAt_Default] DEFAULT (getdate()) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [AK_Person_PersonGroupId_Name] UNIQUE NONCLUSTERED ([PersonGroupId] ASC, [Name] ASC),
+    CONSTRAINT [AK_Person_PersonGroupId_PersonId] UNIQUE NONCLUSTERED ([PersonGroupId] ASC, [PersonId] ASC)
+);
+GO
+CREATE NONCLUSTERED INDEX [IX_Person_PersonGroupId]
+    ON [dbo].[Person]([PersonGroupId] ASC);
+GO
+CREATE TRIGGER [dbo].[Person_Updated]
+ON [dbo].[Person] AFTER UPDATE AS 
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [dbo].[Person] SET UpdatedAt = getdate() WHERE Id IN (SELECT Id FROM Inserted)
+END;

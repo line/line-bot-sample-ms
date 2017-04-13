@@ -1,0 +1,33 @@
+CREATE TABLE `Conversation` (
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `SenderId` varchar(33) NOT NULL,
+  `Path` varchar(100) NOT NULL,
+  `Data` mediumtext NOT NULL,
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `CreatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `SenderId` (`SenderId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `PersonGroup` (
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `PersonGroupId` varchar(64) NOT NULL,
+  `Name` varchar(128) NOT NULL,
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `CreatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `PersonGroupId` (`PersonGroupId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `Person` (
+  `Id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `PersonGroupId` varchar(64) NOT NULL,
+  `PersonId` varchar(36) NOT NULL,
+  `Name` varchar(128) NOT NULL,
+  `UpdatedAt` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `CreatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`),
+  KEY `PersonGroupId` (`PersonGroupId`),
+  UNIQUE KEY `PersonGroupId_PersonId` (`PersonGroupId`, `PersonId`)
+  UNIQUE KEY `PersonGroupId_Name` (`PersonGroupId`, `Name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
